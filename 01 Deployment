@@ -1,0 +1,55 @@
+# Apple-M1-to-deploy-Docker-and-run-Keras
+Apple M1 to deploy Docker and run Keras by Sniper711 2021/01/25
+
+Deployment
+
+==Prepare Docker/Container (1st time only)==
+A.	Install Docker Desktop – Apple M1 Tech Preview version
+Download Docker Desktop for Apple M1 .dmg APP here and run https://docs.docker.com/docker-for-mac/apple-m1/
+Open Activity Monitor APP to see if Docker Desktop runs on Intel CPU mode and Dock runs on Apple CPU mode. If yes, it’s correct.
+B.	[Important before Step C] Set File Sharing Folder.
+In Docker Desktop APP go Preferences settings -> Resources -> File Sharing -> + your Download folder path and restart Docker Desktop APP.
+For example, path should looks like, /Users/(yourID)/Downloads 
+C.	Pull/Download ARM64 version Tensorflow image
+Open Terminal APP
+Login hub.Docker.com website. On top left page search Tenslorflow, on the left page search ARM64 build. You will see a long list of results.
+I choose to use https://hub.docker.com/r/flodutot/tensorflow_aarch64 
+flodutot/tensorflow_aarch64. 
+By flodutot • Updated 2021/1/22. 
+Full Tensorflow 2.4 for aarch64.
+Copy Docker Pull Command on this page:
+% docker pull flodutot/tensorflow_aarch64
+In Terminal APP, paste and run above command.
+In Terminal APP, run command to check if docker image is there.
+% sudo docker images
+D.	1st time Run Docker container, install softwares:
+In Terminal APP, run command and enter container. 
+% sudo docker run -p 8888:8888 -it -v $(pwd):/Users/sniper711/dockers --name tensorflowkerasarm64flodutot8888ip0000 flodutot/tensorflow_aarch64:latest
+Above Blue highlight text can be customized
+In Container, install and upgrade pip command,
+In Container, install jupyter notebook,
+In Container, install keras, 
+In Container, install xlrd,
+In Container, install pandas,
+In Container, install matplotlib,
+In Container, install vim.tiny,
+# python3 -m pip install --upgrade pip
+# python3 -m pip install jupyter
+# pip install keras
+# pip install xlrd
+# pip install pandas
+# apt-get install python3-matplotlib
+# apt-get install vim-tiny
+E.	Make an empty working folder.
+After Jupyter launch you will see all Container folders and files, what a mess!
+Suggest you to make an empty folder for Jupyter dedicatedly. 
+Therefore, at the default “/” path, make a folder calls “workbooks”,
+# mkdir workbooks
+F.	In Container, 1st time run Jupyter on browser:
+Enter “workbooks” folder, then launch the Jupyter,
+# cd workbooks
+# jupyter notebook --allow-root --ip 0.0.0.0
+Find the output text: 
+http://127.0.0.1:8888/?token=xxxxxxxxxxxxxxxxxxxx....xxxxxxxxxx
+Copy and paste it on browser. 
+Now you open Jupyter Notebook on browser for the 1st time.
